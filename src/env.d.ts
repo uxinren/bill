@@ -6,3 +6,4 @@ declare module '*.vue' {
   const component: DefineComponent<{}, {}, any>
   export default component
 }
+//告诉Ts,vue是个组件
