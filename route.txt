@@ -1,0 +1,22 @@
+/welcome/1  
+/welcome/2
+/welcome/3
+/welcome/4
+/start          开始页
+/items/new      添加一笔账
+/tags/new       新建标签
+/tags/:id       更新标签
+/items          首页账单列表
+/sessions/new
+/login
+/statistics
+
+
+组件：
+overlay                 浮层
+layout/welcome          欢迎页
+layout/main             主要布局
+tabs                    切换栏
+button                  按钮
+lineChart
+pieChart
