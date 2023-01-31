@@ -1,5 +1,16 @@
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 
-defineComponent({
-    setup
+export const Bar = defineComponent({
+    setup(){
+        const refCount = ref(0)
+        const onClick = ()=>{
+           refCount.value+=1
+        }
+       return ()=><>
+       <div>{refCount.value}</div>
+       <div>
+        <button onClick={onClick}>+1</button>
+       </div>
+       </>
+    }
 })
