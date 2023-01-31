@@ -9,8 +9,9 @@
   },
   "dependencies": {
     "@jridgewell/source-map": "0.3.2",
-    "@vitejs/plugin-vue-jsx": "3.0.0",
-    "vue": "3.2.45"
+    "@vitejs/plugin-vue-jsx": "1.3.9",
+    "vue": "3.2.45",
+    "vue-router": "4"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "2.3.4",
