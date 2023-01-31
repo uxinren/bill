@@ -1,3 +1,14 @@
+import { defineComponent} from "vue";
+
+export const Bar = defineComponent({
+    setup(){
+       return ()=><>
+        <div></div>
+       </>
+    }
+})
+
+
 /welcome/1  
 /welcome/2
 /welcome/3
