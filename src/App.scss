@@ -7,3 +7,8 @@ body{
     line-height: 1.5;
     color: #333;
 }
+
+::webkit-scrollbar {
+    visibility: hidden;
+  }
+  

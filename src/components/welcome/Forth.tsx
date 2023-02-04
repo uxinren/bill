@@ -1,23 +1,13 @@
-import { defineComponent} from "vue";
-import { RouterLink } from "vue-router";
-import s from "./First.module.scss";
-import cloud from "../../assets/icons/cloud.svg";
-import { WelcomeLayout } from "./WelcomeLayout";
+import { FunctionalComponent} from "vue";
+import s from "./Welcome.module.scss";
 
-export const Forth = defineComponent({
-    setup:(props,context)=>{
-        return ()=>(
-         <WelcomeLayout>
-             {{
-                 icon:()=><img src={cloud} alt="云备份" />,
-                 title:()=><h2>云备份<br/>再也不怕数据丢失</h2>,
-                 button:<>
-                   <RouterLink class={s.fake} to="/start">跳过</RouterLink>
-                   <RouterLink to="/start">完成</RouterLink>
-                   <RouterLink class={s.fake} to="/start">跳过</RouterLink>
-                 </>
-             }}
-         </WelcomeLayout>
-        )
-     }
-})
+export const Forth: FunctionalComponent = () => {
+    return <div class={s.card}>
+            <svg>
+                <use xlinkHref="#save"></use>
+            </svg>
+            <h2>每日提醒<br />不遗漏每一笔账单</h2>
+        </div>
+}
+
+Forth.displayName = 'Forth'
