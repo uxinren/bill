@@ -1,13 +1,12 @@
 import { defineComponent ,Transition,VNode} from "vue";
 import { RouteLocationNormalizedLoaded, RouterView } from "vue-router";
 import s from "./Welcome.module.scss"
-import  logo from "../assets/icons/rainbow.svg"
 export const Welcome = defineComponent({
     setup:(props, context)=>{
        return ()=> <div class={s.wrapper}>
        <header>
            <svg class={s.logo}>
-              <use xlinkHref="#logo"></use>
+              <use xlinkHref="#rainbow"></use>
            </svg>
            <h1>彩虹记账</h1>
        </header>

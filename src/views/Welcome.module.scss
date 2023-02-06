@@ -12,12 +12,12 @@
         align-items: center;
         justify-content: center;
         padding: var(--global-spacing-multiple-1);
-        color: var(--global-text-color) 
-        // > svg {
-        //     width: 64px;
-        //     height: 69px;
-        // }
+        color: var(--global-text-color); 
+        > svg{
+          width: 64px;
+          height: 69px;
     }
+        }
     > main {
         flex-grow: 1;
         display: flex;

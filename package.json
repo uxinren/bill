@@ -8,14 +8,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@jridgewell/source-map": "0.3.2",
-    "@vitejs/plugin-vue-jsx": "1.3.9",
     "sass": "1.57.1",
+    "svgo": "3.0.2",
+    "svgstore": "3.0.1",
     "vue": "3.2.45",
     "vue-router": "4"
   },
   "devDependencies": {
+    "@jridgewell/source-map": "0.3.2",
     "@vitejs/plugin-vue": "2.3.4",
+    "@vitejs/plugin-vue-jsx": "1.3.9",
     "typescript": "4.9.4",
     "vite": "2.9.15",
     "vue-tsc": "0.29.8"

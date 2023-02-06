@@ -6,7 +6,7 @@ import chart from "../../assets/icons/chart.svg";
 export const Third: FunctionalComponent = () => {
     return <div class={s.card}>
             <svg>
-                <use xlinkHref="#save"></use>
+                <use xlinkHref="#cloud"></use>
             </svg>
             <h2>会挣钱<br/>还要会省钱</h2>
         </div>
