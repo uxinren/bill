@@ -7,5 +7,5 @@
   "include": [
     "vite.config.ts",
     "src/vite_plugins/**/*",
-  ]
+  ],
 }

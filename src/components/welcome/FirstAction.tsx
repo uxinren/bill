@@ -9,3 +9,5 @@ export const FirstAction: FunctionalComponent = () => {
     <RouterLink to="/start" >跳过</RouterLink>
   </div>
 }
+
+FirstAction.displayName = 'FirstAction'

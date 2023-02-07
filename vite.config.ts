@@ -9,9 +9,10 @@ export default defineConfig({
   plugins: [
     vue(),
     vueJsx({
-      transformOn:true,
-      mergeProps:true
+      transformOn: true,
+      mergeProps: true
     }),
     svgstore(),
   ]
 })
+
