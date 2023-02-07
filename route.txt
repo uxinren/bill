@@ -31,3 +31,9 @@ tabs                    切换栏
 button                  按钮
 lineChart
 pieChart
+
+
+
+
+
+
