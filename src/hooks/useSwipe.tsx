@@ -1,57 +1,52 @@
-import { computed, onMounted, onUnmounted, ref, Ref } from "vue";
+import { computed, onMounted, ref, Ref } from "vue";
 
-type Point = {
-  x: number;
-  y: number;
-}
+type Point = { x: number; y: number };
 
 export const useSwipe = (element: Ref<HTMLElement | null>) => {
-  const start = ref<Point | null>(null)
-  const end = ref<Point | null>(null)
-  const swiping = ref(false)
+  const start = ref<Point>();
+  const end = ref<Point>();
+  const swiping = ref<boolean>(false);
   const distance = computed(() => {
-    if (!start.value || !end.value) { return null }
+    if (!start.value || !end.value) {
+      return null;
+    }
     return {
       x: end.value.x - start.value.x,
       y: end.value.y - start.value.y,
-    }
-  })
+    };
+  });
   const direction = computed(() => {
-    if (!distance.value) { return '' }
-    const { x, y } = distance.value
-    if (Math.abs(x) > Math.abs(y)) {
-      return x > 0 ? 'right' : 'left'
-    } else {
-      return y > 0 ? 'down' : 'up'
+    if (!swiping) {
+      return "";
     }
-  })
-  const onStart = (e: TouchEvent) => {
-    swiping.value = true
-    end.value = start.value = { x: e.touches[0].screenX, y: e.touches[0].screenY }
-  }
-  const onMove = (e: TouchEvent) => {
-    if (!start.value) { return }
-    end.value = { x: e.touches[0].screenX, y: e.touches[0].screenY, }
-  }
-  const onEnd = (e: TouchEvent) => {
-    swiping.value = false
-  }
-
+    if (!distance.value) {
+      return "";
+    }
+    const { x, y } = distance.value;
+    if (Math.abs(x) > Math.abs(y)) {
+      return x > 0 ? "right" : "left";
+    } else {
+      return y > 0 ? "down" : "up";
+    }
+  });
   onMounted(() => {
-    if (!element.value) { return }
-    element.value.addEventListener('touchstart', onStart)
-    element.value.addEventListener('touchmove', onMove)
-    element.value.addEventListener('touchend', onEnd)
-  })
-  onUnmounted(() => {
-    if (!element.value) { return }
-    element.value.removeEventListener('touchstart', onStart)
-    element.value.removeEventListener('touchmove', onMove)
-    element.value.removeEventListener('touchend', onEnd)
-  })
-  return {
-    swiping,
-    direction,
-    distance,
-  }
-}
+    element.value?.addEventListener("touchstart", (e) => {
+      start.value = {
+        x: e.touches[0].clientX,
+        y: e.touches[0].clientY,
+      };
+      end.value = undefined;
+      swiping.value = true;
+    });
+    element.value?.addEventListener("touchmove", (e) => {
+      end.value = {
+        x: e.touches[0].clientX,
+        y: e.touches[0].clientY,
+      };
+    });
+    element.value?.addEventListener("touchend", (e) => {
+      swiping.value = false;
+    });
+  });
+  return { swiping, direction, distance };
+};
