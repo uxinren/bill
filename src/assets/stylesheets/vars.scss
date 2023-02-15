@@ -1,17 +1,40 @@
 :root{
+    //全局变量
+    --global-text-color:#FF7AB0;
+    --transition-duration:500ms;
+    --border-radius:8px;
+    --global-bg-color:#FFCFE0;
     //欢迎页
-    --welcome-card-bg-start:#FFCFE0;
+    --welcome-card-bg-start: var(--global-bg-color);
     --welcome-card-bg-end:#FCD7D8;
     --welcome-card-bg:#FFEBF1;
     --welcome-text-color:#F06073;
     --welcome-nav-height:76px;
     --z-index-button:10;
 
-    //全局变量
-    --global-text-color:#FF7AB0;
+
+    //全局间距
     --global-spacing-multiple-1:8px;
     --global-spacing-multiple-2:16px;
     --global-spacing-multiple-3:24px;
     --global-spacing-multiple-4:32px;
     --global-spacing-multiple-5:40px;
+
+    //字体与行高
+    --font-size1:14px;
+    --font-size2:16px;
+    --font-size3:20px;
+    --font-size4:24px;
+    --font-size5:30px;
+    --font-size6:38px;
+    --font-size7:46px;
+    --font-size8:56px;
+    --ling-hight1:22px;
+    --ling-hight2:24px;
+    --ling-hight3:28px;
+    --ling-hight4:32px;
+    --ling-hight5:38px;
+    --ling-hight6:46px;
+    --ling-hight7:54px;
+    --ling-hight8:64px;
 }
