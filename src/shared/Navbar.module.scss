@@ -1,0 +1,25 @@
+.navbar{
+    color: var(--nav-text-color);
+    background-image: linear-gradient(to bottom, var(--global-bg-start) 0%, var(--global-bg-end) 100%);
+    fill: var(--nav-text-color);
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: 12px 0;
+}
+.title_wrapper{
+    font-size: 24px;
+}
+.icon_wrapper{
+    width: 36px;
+    height: 36px;
+    margin-left: var(--global-spacing-multiple-2);
+    margin-right: var(--global-spacing-multiple-1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    > * {
+        max-width: 100%;
+        max-height: 100%;
+    }
+}

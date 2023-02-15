@@ -1,6 +1,20 @@
+.nav_wrapper{
+
+}
 .button{
     width: 100%;
     &_wrapper{
         padding:var(--global-spacing-multiple-2);
     }
+}
+.pig{
+    width: 136px;
+    height: 136px;
+    &_wrapper{
+        padding: 120px 0;
+    }
+}
+.icon{
+    width: 28px;
+    height: 28px;
 }

@@ -10,9 +10,8 @@
     position: fixed;
     right: var(--global-spacing-multiple-3);
     bottom: var(--global-spacing-multiple-3);
-    Icon{
-        width: 24px;
-        height: 24px;
-        fill: red;
+    .icon{
+        width: 28px;
+        height: 28px;
     }
 }

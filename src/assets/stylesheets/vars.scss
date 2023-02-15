@@ -4,15 +4,19 @@
     --transition-duration:500ms;
     --border-radius:8px;
     --global-bg-color:#FFCFE0;
+    --global-bg-start:#FFCFE0;
+    --global-bg-end:#FCD7D8;
+
     //欢迎页
     --welcome-card-bg-start: var(--global-bg-color);
-    --welcome-card-bg-end:#FCD7D8;
+    --welcome-card-bg-end:var(--global-bg-end);
     --welcome-card-bg:#FFEBF1;
     --welcome-text-color:#F06073;
     --welcome-nav-height:76px;
     --z-index-button:10;
 
-
+    //navbar
+    --nav-text-color:var(--global-text-color);
     //全局间距
     --global-spacing-multiple-1:8px;
     --global-spacing-multiple-2:16px;
