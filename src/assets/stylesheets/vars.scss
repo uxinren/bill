@@ -1,21 +1,31 @@
 :root{
-    //全局变量
-    --global-text-color:#FF7AB0;
-    --transition-duration:500ms;
-    --border-radius:8px;
+    //全局颜色
+    --global-text-color:#F06073;
     --global-bg-color:#FFCFE0;
     --global-bg-start:#FFCFE0;
     --global-bg-end:#FCD7D8;
-
-    //欢迎页
+    --global-bg-white:#fff6f8;
+    //全局时间
+    --transition-duration:500ms;
+    //全局圆角
+    --border-radius:8px;
+    //全局浮层背景
+    --global-mask-bgcolor: rgba(0, 0, 0, 0.5);
+    //欢迎组件
     --welcome-card-bg-start: var(--global-bg-color);
     --welcome-card-bg-end:var(--global-bg-end);
-    --welcome-card-bg:#FFEBF1;
-    --welcome-text-color:#F06073;
+    --welcome-card-bg:var(--global-bg-white);
+    --welcome-text-color:var(--global-text-color);
     --welcome-nav-height:76px;
-    --z-index-button:10;
+    --z-index-button:8;
 
-    //navbar
+    //浮层组件
+    --z-index-overlay:16;
+    --overlay-text-color: var(--global-text-color);
+    --overlay-bg-color: var(--global-bg-white);
+    --overlay-title-bg-color: var(--global-bg-end);
+
+    //顶部组件
     --nav-text-color:var(--global-text-color);
     //全局间距
     --global-spacing-multiple-1:8px;
@@ -24,7 +34,7 @@
     --global-spacing-multiple-4:32px;
     --global-spacing-multiple-5:40px;
 
-    //字体与行高
+    //全局字体与行高
     --font-size1:14px;
     --font-size2:16px;
     --font-size3:20px;
