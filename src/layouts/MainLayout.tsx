@@ -1,8 +1,4 @@
-import { defineComponent,PropType} from 'vue';
-import { RouterLink } from 'vue-router';
-import { Button } from '../shared/Button';
-import { Center } from '../shared/Center';
-import { Icon } from '../shared/Icon';
+import { defineComponent} from 'vue';
 import { Navbar } from '../shared/Navbar';
 import s from './MainLayout.module.scss';
 export const MainLayout = defineComponent({
