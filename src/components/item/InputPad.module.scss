@@ -1,0 +1,13 @@
+.buttons{
+    display: flex;
+    flex-wrap: wrap;
+    > button{
+        width: 25%;
+        height: 48px;
+        border-right: 1px solid #ccc;
+        border-top: 1px solid #ccc;
+        &:nth-child(4n){
+        border-right: none;
+        }
+    }
+}
