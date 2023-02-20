@@ -27,12 +27,12 @@ export const InputPad = defineComponent({
         {text: "提交",onclick: () =>{}}
     ]
     return ()=><>
-    <div>
+    <div class={s.dateAndAmount}>
         <span class={s.date}>
-            <Icon name='date'/>
-            <input/>
+            <Icon name='date' class={s.icon}/>
+            <span><input type="date"/></span>
         </span>
-        <div class={s.amount}>数值</div>
+        <div class={s.amount}>199.12</div>
     </div>
     <div class={s.buttons}>
         {buttons.map(button =>

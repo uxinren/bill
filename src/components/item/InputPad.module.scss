@@ -11,3 +11,26 @@
         }
     }
 }
+.dateAndAmount{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--global-spacing-multiple-2);
+    font-family: monospace;
+    > .date{
+        display: flex;
+        align-items: center;
+        font-size: 12px;
+        color: #999;    
+        .icon{
+            width: 24px;
+            height: 24px;
+            margin-right: var(--global-spacing-multiple-1);
+            fill: var(--global-text-color);
+        }
+    }
+    > .amount{
+        font-size: 20px;
+        color: #00ADAB;
+    }
+}
