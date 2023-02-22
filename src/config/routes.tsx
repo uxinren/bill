@@ -8,10 +8,13 @@ import { Second } from '../components/welcome/Second'
 import { Third } from '../components/welcome/Third'
 import { Forth } from '../components/welcome/Forth'
 import { Welcome } from '../views/Welcome'
-import { startPage } from '../views/StartPage'
+import { StartPage } from '../views/StartPage'
 import { ItemPage } from '../views/ItemPage'
 import { ItemList } from '../components/item/ItemList'
 import { ItemCreate } from '../components/item/ItemCreate'
+import { TagPage } from '../views/TagPage'
+import { TagCreate } from '../components/tag/TagCreate'
+import { TagEdit } from '../components/tag/TagEdit'
 
 export const routes: RouteRecordRaw[] = [
     { path: '/', redirect: '/welcome' },
@@ -26,11 +29,15 @@ export const routes: RouteRecordRaw[] = [
         { path: '4', name:"welcome4", components: { main: Forth, footer: ForthAction }, },
       ]
     },
-    { path:'/start',component:startPage},
+    { path:'/start',component:StartPage},
     {path:'/items',component:ItemPage,
     children:[
       { path:'',component:ItemList},
       { path:'create',component:ItemCreate},
-    ]
-  },
+    ]},
+  {path:'/tags', component: TagPage,
+  children:[
+    {path:'create',component:TagCreate},
+    {path:':id',component:TagEdit}
+  ]},
   ]
