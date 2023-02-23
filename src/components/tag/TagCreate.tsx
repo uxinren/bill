@@ -18,7 +18,6 @@ export const TagCreate = defineComponent({
     })
     const errors = reactive<{[k in keyof typeof formData]?:String[]}>({})
     const onSubmit = (e:Event)=>{
-      console.log(1);
       const rules:Rules<typeof formData> = [
         {key: 'name', type:'required',message:'必填'},
         {key: 'name', type:'pattern', regex: /^.{0,4}$/ , message:'只能填1到4个字符'},
