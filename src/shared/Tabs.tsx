@@ -2,6 +2,9 @@ import { defineComponent,PropType} from 'vue';
 import s from './Tabs.module.scss';
 export const Tabs = defineComponent({
     props:{
+      classPrefix:{
+        type: String
+      },
       selected:{
         type: String as PropType<string>
     },
@@ -19,14 +22,18 @@ export const Tabs = defineComponent({
             throw new Error("Tabs只接受Tab子组件")
         }
     }
-    return <div class={s.tabs}>
-            <ol class={s.tabs_nav}>
-                {tabs.map(item =><li class={item.props?.name === props.selected?s.selected:''}
-                // onClick={()=>props.onUpdateSelected?.(item.props?.name)}
-                onClick={()=>context.emit('update:selected', item.props?.name)}
-                >
-                    {item.props?.name}
-                </li>)}
+    const cp = props.classPrefix
+    return <div class={[s.tabs , cp+'_tabs']}>
+            <ol class={[s.tabs_nav, cp+'_tabs_nav']}>
+              {tabs.map(item =><li class={[
+                item.props?.name === props.selected?[s.selected , cp+'selected']:'',
+                cp+'_tabs_nav_item'  
+            ]}
+              //另一种写法 onClick={()=>props.onUpdateSelected?.(item.props?.name)}
+              onClick={()=>context.emit('update:selected', item.props?.name)}
+              >
+                  {item.props?.name}
+              </li>)}
             </ol>
             <div>
                 {tabs.find(item => item.props?.name === props.selected)}
@@ -37,7 +44,6 @@ export const Tabs = defineComponent({
 })
 
 
-import c from './Tab.module.scss';
 export const Tab = defineComponent({
     props:{
       name:{
