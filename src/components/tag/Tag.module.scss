@@ -37,3 +37,11 @@
       height: 16px;
     }
   }
+.action{
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  Button{
+    width: calc(50% - 8px);
+  }
+}

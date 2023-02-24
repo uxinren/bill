@@ -7,4 +7,12 @@
     line-height: var(--ling-hight2);
     border-radius: var(--border-radius);
     box-sizing: border-box;
+    &.normal{
+
+    }
+    &.inportant{}
+    &.danger{
+        background-color: #be3333;
+        color: white;
+    }
 }

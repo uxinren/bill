@@ -1,14 +1,24 @@
-import { defineComponent,PropType} from 'vue';
-import s from './TagEdit.module.scss';
+import { defineComponent} from 'vue';
+import { MainLayout } from '../../layouts/MainLayout';
+import { Button } from '../../shared/Button';
+import { Icon } from '../../shared/Icon';
+import s from './Tag.module.scss';
+import { TagForm } from './TagForm';
 export const TagEdit = defineComponent({
-    props:{
-      name:{
-        type: String as PropType<string>
-    }
-  },
+
   setup:(props,context)=>{
     return ()=>(
-    <div>333</div>
+    <MainLayout>{{
+        title:()=>'新建标签',
+        icon:()=><Icon name='left' onClick={()=>{}}/>,
+        default:()=><>
+            <TagForm />
+            <div class={s.action}>
+              <Button level='danger' onClick={()=>{}}>标签删除</Button>
+              <Button level='danger' onClick={()=>{}}>全部删除</Button>
+            </div>
+        </>
+    }}</MainLayout>
     )
   }
 })
