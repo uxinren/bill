@@ -13,7 +13,6 @@
             text-align: center;
             flex-grow: 1;
             flex-shrink: 0;
-            padding: var(--global-spacing-multiple-1) 0;
             &.selected{
                 position: relative;
                 &::after{

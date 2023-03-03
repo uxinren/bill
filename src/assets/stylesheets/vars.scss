@@ -1,5 +1,8 @@
 :root{
     //全局颜色
+    --color-333:#333;
+    --color-666:#666;
+    --color-999:#999;
     --danger-color:#FF3141;
     --warning-color:#FF8F1F;
     --success-color:#00B578;
@@ -32,7 +35,7 @@
     --z-index-overlay:16;
     --overlay-text-color: var(--global-text-color);
     --overlay-bg-color: var(--global-bg-white);
-    --overlay-title-bg-color: var(--global-bg-end);
+    --overlay-title-bg-color: var(--global-bg-start);
 
     //顶部组件
     --nav-text-color:var(--global-text-color);

@@ -10,11 +10,12 @@
 .overlay{
     z-index: calc(var(--z-index-overlay) + 1);
     background-color: var(--overlay-bg-color);
-    width: 16em;
     height: calc(100% - var(--global-spacing-multiple-3));
-    position: fixed;
     top: var(--global-spacing-multiple-3);
+    position: fixed;
     left: 0;
+    width: 15em;
+    color: var(--color-333);
     .currentUser{
         background-color: var(--overlay-title-bg-color);
         padding: var(--global-spacing-multiple-2) var(--global-spacing-multiple-1);
@@ -32,11 +33,11 @@
                 align-items: center;
                 span{
                     font-size: var(--font-size3);
-                    margin-left: var(--global-spacing-multiple-1);
+                    margin-left: var(--global-spacing-multiple-2);
                 }
                 .icon{
-                    width: 22px;
-                    height: 22px;
+                    width: 28px;
+                    height: 28px;
                 }
             }
         }
