@@ -6,6 +6,7 @@
   align-items: center;
   border: 1px solid #efefef;
   background: var(--global-mask-bgcolor);
+  z-index: var(--z-index-overlay);
   &_inner {
     background: white;
     width: 80vw;

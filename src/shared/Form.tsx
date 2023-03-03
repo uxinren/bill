@@ -18,7 +18,6 @@ export const Form = defineComponent({
   }
 })
 
-
 export const FormItem = defineComponent({
     props:{
       label:{
@@ -34,6 +33,7 @@ export const FormItem = defineComponent({
         type: [String, Object] as PropType<string | Record<string, any>>
     }
   },
+  emits:['update:modelValue'],
   setup: (props, context) => {
     const refDateVisible = ref(false)
     const content = computed(() => {
