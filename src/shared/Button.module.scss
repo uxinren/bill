@@ -1,18 +1,99 @@
 .button{
-    border: none;
-    padding: 12px 16px;
-    background-color: var(--welcome-card-bg-start);
-    color: var(--global-text-color);
+    /* 按钮的默认样式 */
+    padding: 12px 16px;  
     font-size: var(--font-size2);
     line-height: var(--ling-hight2);
     border-radius: var(--border-radius);
     box-sizing: border-box;
-    &.normal{
-
-    }
-    &.inportant{}
-    &.danger{
-        background-color: #be3333;
-        color: white;
-    }
+    &.small {
+        /* 按钮的小号样式 */
+        width: 80px;
+      }
+      
+      &.medium {
+        /* 按钮的中号样式 */
+        width: 168px;
+      }
+      
+      &.large {
+        /* 按钮的大号样式 */
+        width: 100%;
+      }
+    &.normal {
+        /* 按钮的 normal 样式 */
+        border: none;
+        color: white;    
+        background-color: var(--welcome-card-bg-start);
+        &.default{
+            /* 按钮的默认样式 */
+            color: #333;
+        }
+        &.primary{
+            /* 按钮的 primary 样式 */
+            background-color: var(--global-bg-color);
+            color: var(--global-text-color);
+        }
+        &.success{
+            /* 按钮的 success 样式 */
+            background-color: var(--success-color);
+        }
+        &.warning{
+            /* 按钮的 warning 样式 */
+            background-color: var(--warning-color);
+        }
+        &.danger{
+            /* 按钮的 danger 样式 */
+            background-color: var(--danger-color);     
+        }
+      } 
+      &.outline {
+        /* 按钮的 outline 样式 */
+        border: 1px solid #efefef;
+        background-color: white;
+        &.default{
+            /* 按钮的默认样式 */
+            border-color:var(--global-bg-color);
+            color: var(--global-text-color);
+        }
+        &.success{
+            /* 按钮的 success 样式 */
+            border-color:var(--success-color);
+            color: var(--success-color);
+        }
+        &.warning{
+            /* 按钮的 warning 样式 */
+            border-color: var(--warning-color);
+            color: var(--warning-color);
+        }
+        &.danger{
+            /* 按钮的 danger 样式 */
+            border-color: var(--danger-color);  
+            color: var(--danger-color);   
+        }
+      }
+      &.text {
+        /* 按钮的 text 样式 */
+        padding: 12px 0;
+        background-color: rgba($color: #000000, $alpha: 0);
+        &.default{
+            /* 按钮的默认样式 */
+            color: #333;
+        }
+        &.primary{
+            /* 按钮的 primary 样式 */
+            color: var(--global-text-color);
+        }
+        &.success{
+            /* 按钮的 success 样式 */
+            color: var(--success-color);
+        }
+        &.warning{
+            /* 按钮的 warning 样式 */
+            color: var(--warning-color);
+        }
+        &.danger{
+            /* 按钮的 danger 样式 */
+            color: var(--danger-color);   
+        }
+      }
 }

@@ -1,6 +1,7 @@
 .wrapper{
     position: relative;
     .navbar{
+        z-index: 8;
         position: sticky;
         top: 0;
     }
