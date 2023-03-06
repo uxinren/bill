@@ -9,7 +9,7 @@ export const Button = defineComponent({
         },
         level:{
             type: String as PropType<'default' | 'primary' | 'success'|'warning'|'danger'>,
-            default: 'default'
+            default: 'primary'
         },
         size:{
             type: String as PropType<'small' | 'medium' | 'large'>,
@@ -26,7 +26,7 @@ export const Button = defineComponent({
     },
     setup:(props,context)=>{
        return ()=>(
-        <button class={[s.button,s[props.level], s[props.theme], s[props.size]]}>
+        <button class={[s.button,s[props.level],s[props.theme],s[props.size]]}>
             {context.slots.default?.()}
         </button>
        )

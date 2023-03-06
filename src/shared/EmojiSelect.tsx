@@ -36,7 +36,12 @@ export const EmojiSelect = defineComponent({
       refSelected.value = index
     }
     const onClickEmoji = (emoji: string) => {
-      context.emit('update:modelValue', emoji)
+      //如果父组件传入了emoji，就调用父组件的emoji  //否则就调用自己的emoji
+      if (props.onUpdateModelValue) {
+        props.onUpdateModelValue(emoji)
+      }else{
+        context.emit('update:modelValue', emoji)
+      }
     }
     const emojis = computed(() => {
       const selectedItem = table[refSelected.value][1]

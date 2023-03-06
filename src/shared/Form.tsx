@@ -1,5 +1,6 @@
 import { DatetimePicker, Popup } from 'vant';
 import { computed, defineComponent,PropType, ref} from 'vue';
+import { Button } from './Button';
 import { EmojiSelect } from './EmojiSelect';
 import s from './Form.module.scss';
 import { Time } from './time';
@@ -27,10 +28,10 @@ export const FormItem = defineComponent({
         type: [String,Number]
     },
     type:{
-        type: String as PropType<'text'|'emojiSelect'|'date'>
+        type: String as PropType<'text'|'emojiSelect'|'date'|'mailCode'>
     },
     error:{
-        type: [String, Object] as PropType<string | Record<string, any>>
+        type: String
     }
   },
   emits:['update:modelValue'],
@@ -42,12 +43,17 @@ export const FormItem = defineComponent({
           return <input
             value={props.modelValue}
             onInput={(e: any) => context.emit('update:modelValue', e.target.value)}
-            class={[s.formItem, s.input, s.error]} />
+            class={[s.formItem, s.input]} />
         case 'emojiSelect':
           return <EmojiSelect
             modelValue={props.modelValue?.toString()}
             onUpdateModelValue={ value => context.emit('update:modelValue', value)}
             class={[s.formItem, s.emojiList, s.error]} />
+        case 'mailCode':
+          return <>
+            <input class={[s.formItem,s.input,s.mailInput]}/>
+            <Button class={[s.button,s.mailButton]} size='small' level='default'>发送验证码</Button>
+          </>
         case 'date':
           return <>
           <input readonly={true} value={props.modelValue}

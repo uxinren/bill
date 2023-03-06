@@ -14,7 +14,7 @@ export const TagForm = defineComponent({
         name: '',
         sign: '',
     })
-    const errors = reactive<{[k in keyof typeof formData]?:String[]}>({})
+    const errors = reactive<{[k in keyof typeof formData]?: String[]}>({})
     const onSubmit = (e:Event)=>{
       const rules: Rules<typeof formData> = [
         { key: 'name', type: 'required', message: '必填' },
@@ -27,17 +27,17 @@ export const TagForm = defineComponent({
       })
       Object.assign(errors,validate(formData,rules))
       e.preventDefault();
-      
     }
+    
     return ()=>(
       <Form onSubmit={onSubmit}>    
         <FormItem label='标签名'
           type="text"
           v-model={formData.name}
-          error={errors['name']? errors['name'][0] : '　'} />
+          error={errors['name']?.[0]} />
         <FormItem label={'符号 ' + formData.sign}
           type="emojiSelect" v-model={formData.sign}
-          error={errors['sign'] ? errors['sign'][0] : '　'} />
+          error={errors['sign']?.[0]} />
         <FormItem>
           <p class={s.tips}>记账时长按标签即可进行编辑</p>
         </FormItem>
