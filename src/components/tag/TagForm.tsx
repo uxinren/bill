@@ -1,4 +1,4 @@
-import { defineComponent,PropType,reactive} from 'vue';
+import { defineComponent,PropType,reactive } from 'vue';
 import { Button } from '../../shared/Button';
 import { Form, FormItem } from '../../shared/Form';
 import { Rules, validate } from '../../shared/validate';
@@ -14,7 +14,7 @@ export const TagForm = defineComponent({
         name: '',
         sign: '',
     })
-    const errors = reactive<{[k in keyof typeof formData]?: String[]}>({})
+    const errors = reactive<{ [k in keyof typeof formData]?: string[] }>({})
     const onSubmit = (e:Event)=>{
       const rules: Rules<typeof formData> = [
         { key: 'name', type: 'required', message: '必填' },

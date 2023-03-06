@@ -1,6 +1,20 @@
-.wrapper{
-   
+
+.logo{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    flex-direction: column;
+    padding-top: 40px;
+    .icon{
+        width: 128px;
+        height: 72px;
+    }
+    .appName{
+        font-size: 32px;
+        color: var(--global-text-color);
+    }
 }
 .button{
-    margin-top: 24vh;
+    margin-top: 12vh;
 }

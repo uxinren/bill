@@ -32,7 +32,8 @@ export const FormItem = defineComponent({
     },
     error:{
         type: String
-    }
+    },
+    placeholder: String
   },
   emits:['update:modelValue'],
   setup: (props, context) => {
@@ -42,6 +43,7 @@ export const FormItem = defineComponent({
         case 'text':
           return <input
             value={props.modelValue}
+            placeholder={props.placeholder}
             onInput={(e: any) => context.emit('update:modelValue', e.target.value)}
             class={[s.formItem, s.input]} />
         case 'emojiSelect':
@@ -51,12 +53,15 @@ export const FormItem = defineComponent({
             class={[s.formItem, s.emojiList, s.error]} />
         case 'mailCode':
           return <>
-            <input class={[s.formItem,s.input,s.mailInput]}/>
+            <input class={[s.formItem,s.input,s.mailInput]}
+            placeholder={props.placeholder}
+            />
             <Button class={[s.button,s.mailButton]} size='small' level='default'>发送验证码</Button>
           </>
         case 'date':
           return <>
           <input readonly={true} value={props.modelValue}
+            placeholder={props.placeholder}
             onClick={() => { refDateVisible.value = true }}
             class={[s.formItem, s.input]} />
           <Popup position='bottom' v-model:show={refDateVisible.value}>
@@ -80,11 +85,10 @@ export const FormItem = defineComponent({
         <div class={s.formItem_value}>
           {content.value}
         </div>
-        {props.error &&
+
           <div class={s.formItem_errorHint}>
-            <span>{props.error}</span>
+            <span class={s.error}>{props.error ?? '　'}</span>
           </div>
-        }
       </label>
     </div>
   }

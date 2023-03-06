@@ -31,8 +31,8 @@
         }
         &.primary{
             /* 按钮的 primary 样式 */
-            background-color: var(--global-bg-color);
             color: var(--global-text-color);
+            background-color: var(--global-bg-color);
         }
         &.success{
             /* 按钮的 success 样式 */

@@ -1,0 +1,24 @@
+.wrapper{}
+.overlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #efefef;
+    background: var(--global-mask-bgcolor);
+    z-index: var(--z-index-overlay);
+    &_inner {
+      background: white;
+      width: 80vw;
+      > header {
+        background: var(--global-bg-color);
+        padding: 12px 16px;
+        color: var(--global-text-color);
+      }
+    }
+  }
+  
+  .submit{
+      display: flex;
+      justify-content: end;
+      margin-top: 16px;
+  }

@@ -35,14 +35,19 @@ pieChart
 
 
 
+老师，我要提问：
 代码的链接:https://github.com/uxinren/bill
 运行步骤:
-1、使用pnpm run build打包
-2、使用pmpm run preview 查看]
-3、版本"vue": "3.2.45","vite": "2.9.15",Node v18.10.0
-错误复现步骤:
-第一步：访问http://localhost:4173/#/  显示空白
-第二步：控制台显示TypeError: l.then is not a function
-    at index.174f5660.js:5:13959
-    at index.174f5660.js:5:22425
+无
+错误复现步骤:TagForm组件中的error报错
+<FormItem label='标签名'
+          type="text"
+          v-model={formData.name}
+          error={errors['name']?.[0]} />
+
+不能将类型“{ [x: number]: string; toString: () => string; charAt: (pos: number) => string; charCodeAt: (index: number) => number; concat: (...strings: string[]) => string; indexOf: (searchString: string, position?: number | undefined) => number; ... 44 more ...; [Symbol.iterator]: () => IterableIterator<...>; } | undefined”分配给类型“string | undefined”。
+  不能将类型“{ [x: number]: string; toString: () => string; charAt: (pos: number) => string; charCodeAt: (index: number) => number; concat: (...strings: string[]) => string; indexOf: (searchString: string, position?: number | undefined) => number; ... 44 more ...; [Symbol.iterator]: () => IterableIterator<...>; }”分配给类型“string”。ts(2322)
+Form.tsx(33, 5): 所需类型来自属性 "error"，在此处的 "IntrinsicAttributes & Partial<{}> & Omit<Readonly<ExtractPropTypes<{ label: { type: StringConstructor; }; modelValue: { type: (StringConstructor | NumberConstructor)[]; }; type: { ...; }; error: { ...; }; }>> & { ...; } & VNodeProps & AllowedComponentProps & ComponentCustomProps, never>" 类型上声明该属性
+期待的正确结果：error不报错
+
 
