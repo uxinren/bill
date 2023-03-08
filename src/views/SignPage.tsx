@@ -1,5 +1,5 @@
 import axios from "axios";
-import { defineComponent, PropType, reactive } from "vue";
+import { defineComponent, PropType, reactive, ref } from "vue";
 import { MainLayout } from "../layouts/MainLayout";
 import { Button } from "../shared/Button";
 import { Form, FormItem } from "../shared/Form";
@@ -12,13 +12,19 @@ export const SignPage = defineComponent({
       email: "",
       mailCode: "",
     });
+    const refMailCode = ref<any>();
     const errors = reactive({
       email: [],
       mailCode: [],
     });
     const onCodeClick= async () => {
-      // const response = await axios.post('/api/v1/validation_codes', { email: formDate.email })
-      // console.log(response);
+      const response = await axios.post('/api/v1/validation_codes', { email: formDate.email })
+      .catch(()=>{
+        Object.assign(errors, {
+          email: ['邮箱地址不存在'],
+        });
+      })
+      refMailCode.value?.startCount();
     }
     const onSubmit = (e: Event) => {
       e.preventDefault();
@@ -61,6 +67,7 @@ export const SignPage = defineComponent({
                   error={errors.email?.[0]}
                 ></FormItem>
                 <FormItem
+                  ref={refMailCode}
                   label="验证码"
                   type="mailCode"
                   countFrom={30}
