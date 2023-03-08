@@ -23,7 +23,13 @@
         border: 1px solid var(--global-bg-color);
       }
     }
-  
+    &.select{
+      border-radius: var(--input-radius);
+      width: 20vw;
+      height: 36px;
+      flex-grow: 0;
+      padding-left: 8px;
+    }
     &_value {
       display: flex;
       margin: 8px 0;

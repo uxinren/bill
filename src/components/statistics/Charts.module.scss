@@ -1,1 +1,11 @@
-.wrapper{}
+.wrapper{
+    width: calc(100% - 32px);
+    margin-left: auto;
+    margin-right: auto;
+    .formItem{       
+        margin-top: 16px;
+    }
+
+}
+
+  
