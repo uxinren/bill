@@ -23,11 +23,19 @@ export const Button = defineComponent({
         type:{
             type: String as PropType<'button' | 'submit'>,
             default: 'button'
+        },
+        disabled:{
+            type: Boolean,
+            default: false
         }
     },
     setup:(props,context)=>{
        return ()=>(
-        <button type={props.type} class={[s.button,s[props.level],s[props.theme],s[props.size]]} onClick={props.onClick}>
+        <button type={props.type} 
+            onClick={props.onClick}
+            disabled={props.disabled}
+            class={[s.button,s[props.level],s[props.theme],s[props.size]]}
+            >
             {context.slots.default?.()}
         </button>
        )

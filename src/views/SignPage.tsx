@@ -17,8 +17,8 @@ export const SignPage = defineComponent({
       mailCode: [],
     });
     const onCodeClick= async () => {
-      const response = await axios.post('/api/v1/validation_codes', { email: formDate.email })
-      console.log(response);
+      // const response = await axios.post('/api/v1/validation_codes', { email: formDate.email })
+      // console.log(response);
     }
     const onSubmit = (e: Event) => {
       e.preventDefault();
@@ -63,6 +63,7 @@ export const SignPage = defineComponent({
                 <FormItem
                   label="验证码"
                   type="mailCode"
+                  countFrom={30}
                   placeholder='请输入六位验证码'
                   v-model={formDate.mailCode}
                   error={errors.mailCode?.[0]}

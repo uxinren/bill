@@ -4,6 +4,11 @@
     font-size: var(--font-size2);
     border-radius: var(--border-radius);
     box-sizing: border-box;
+    &[disabled] {
+        /* 按钮的禁用样式 */
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
     &.small {
         /* 按钮的小号样式 */
         width: 80px;
