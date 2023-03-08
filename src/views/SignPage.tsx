@@ -16,6 +16,9 @@ export const SignPage = defineComponent({
       email: [],
       mailCode: [],
     });
+    const onCodeClick=(() => {
+      console.log("发送验证码");
+    })
     const onSubmit = (e: Event) => {
       e.preventDefault();
       Object.assign(errors, {
@@ -62,6 +65,7 @@ export const SignPage = defineComponent({
                   placeholder='请输入六位验证码'
                   v-model={formDate.mailCode}
                   error={errors.mailCode?.[0]}
+                  onCodeClick={onCodeClick}
                 ></FormItem>
                 <FormItem>
                   <Button size="large" class={s.button} type="submit">
