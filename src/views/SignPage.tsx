@@ -5,11 +5,11 @@ import { Button } from "../shared/Button";
 import { Form, FormItem } from "../shared/Form";
 import { defaultHttpClient } from "../shared/HttpClient";
 import { Icon } from "../shared/Icon";
-import { validate } from "../shared/validate";
+import { hasError, validate } from "../shared/validate";
 import s from "./SignPage.module.scss";
 export const SignPage = defineComponent({
   setup: (props, context) => {
-    const formDate = reactive({
+    const formData = reactive({
       email: "315921205@qq.com",
       mailCode: "",
     });
@@ -28,33 +28,29 @@ export const SignPage = defineComponent({
     const onCodeClick= async () => {
       disabled();
       const response = await defaultHttpClient
-      .post('/validation_codes', { email: formDate.email })
+      .post('/validation_codes', { email: formData.email })
       .catch(onError)
       .finally(enable);
       //发送邮箱验证码成功
       refMailCode.value?.startCount();
     }
-    const onSubmit = (e: Event) => {
+    const onSubmit = async (e: Event) => {
       e.preventDefault();
       Object.assign(errors, {
         email: [],
         mailCode: [],
       });
-
       Object.assign(
         errors,
-        validate(formDate, [
+        validate(formData, [
           { key: "email", type: "required", message: "必填" },
-          {
-            key: "email",
-            type: "pattern",
-            regex: /.+@.+/,
-            message: "邮箱格式不正确",
-          },
+          { key: "email",type: "pattern",regex: /.+@.+/,message: "邮箱格式不正确"},
           { key: "mailCode", type: "required", message: "必填" },
-        ])
-      );
-    };
+        ]))
+        if(!hasError(errors)){
+          const response = await defaultHttpClient.post('/session', formData)
+        }
+      };
     return () => (
       <MainLayout>
         {{
@@ -71,7 +67,7 @@ export const SignPage = defineComponent({
                   label="邮箱地址"
                   type="text"
                   placeholder='请输入邮箱，然后点击发送验证码'
-                  v-model={formDate.email}
+                  v-model={formData.email}
                   error={errors.email?.[0]}
                 ></FormItem>
                 <FormItem
@@ -81,7 +77,7 @@ export const SignPage = defineComponent({
                   countFrom={1}
                   disabled={refDisabled.value}
                   placeholder='请输入六位验证码'
-                  v-model={formDate.mailCode}
+                  v-model={formData.mailCode}
                   error={errors.mailCode?.[0]}
                   onCodeClick={onCodeClick}
                 ></FormItem>
