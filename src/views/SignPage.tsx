@@ -1,29 +1,37 @@
-import axios from "axios";
-import { defineComponent, PropType, reactive, ref } from "vue";
+import { defineComponent, reactive, ref } from "vue";
+import { useBool } from "../hooks/useBool";
 import { MainLayout } from "../layouts/MainLayout";
 import { Button } from "../shared/Button";
 import { Form, FormItem } from "../shared/Form";
+import { defaultHttpClient } from "../shared/HttpClient";
 import { Icon } from "../shared/Icon";
 import { validate } from "../shared/validate";
 import s from "./SignPage.module.scss";
 export const SignPage = defineComponent({
   setup: (props, context) => {
     const formDate = reactive({
-      email: "",
+      email: "315921205@qq.com",
       mailCode: "",
     });
     const refMailCode = ref<any>();
+    const {ref:refDisabled,toggle,on:disabled,off:enable} = useBool(false);
     const errors = reactive({
       email: [],
       mailCode: [],
     });
+    const onError = (error:any) => {
+      if (error.response.status === 422) {
+        Object.assign(errors, error.response.data.errors);
+      }
+      throw error;
+    }
     const onCodeClick= async () => {
-      const response = await axios.post('/api/v1/validation_codes', { email: formDate.email })
-      .catch(()=>{
-        Object.assign(errors, {
-          email: ['邮箱地址不存在'],
-        });
-      })
+      disabled();
+      const response = await defaultHttpClient
+      .post('/validation_codes', { email: formDate.email })
+      .catch(onError)
+      .finally(enable);
+      //发送邮箱验证码成功
       refMailCode.value?.startCount();
     }
     const onSubmit = (e: Event) => {
@@ -70,7 +78,8 @@ export const SignPage = defineComponent({
                   ref={refMailCode}
                   label="验证码"
                   type="mailCode"
-                  countFrom={30}
+                  countFrom={1}
+                  disabled={refDisabled.value}
                   placeholder='请输入六位验证码'
                   v-model={formDate.mailCode}
                   error={errors.mailCode?.[0]}
