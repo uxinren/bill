@@ -1,9 +1,9 @@
+import axios from "axios";
 import { defineComponent, PropType, reactive } from "vue";
 import { MainLayout } from "../layouts/MainLayout";
 import { Button } from "../shared/Button";
 import { Form, FormItem } from "../shared/Form";
 import { Icon } from "../shared/Icon";
-import { OverlayIcon } from "../shared/Overlay";
 import { validate } from "../shared/validate";
 import s from "./SignPage.module.scss";
 export const SignPage = defineComponent({
@@ -16,9 +16,10 @@ export const SignPage = defineComponent({
       email: [],
       mailCode: [],
     });
-    const onCodeClick=(() => {
-      console.log("发送验证码");
-    })
+    const onCodeClick= async () => {
+      const response = await axios.post('/api/v1/validation_codes', { email: formDate.email })
+      console.log(response);
+    }
     const onSubmit = (e: Event) => {
       e.preventDefault();
       Object.assign(errors, {
