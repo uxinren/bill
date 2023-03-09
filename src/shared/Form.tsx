@@ -29,7 +29,7 @@ export const FormItem = defineComponent({
     },
     type: {
       type: String as PropType<
-        "text" | "emojiSelect" | "date" | "mailCode" | "select"
+        "text" | "emojiSelect" | "date" | "code" | "select"
       >,
     },
     error: {
@@ -87,7 +87,7 @@ export const FormItem = defineComponent({
               class={[s.formItem, s.emojiList, s.error]}
             />
           );
-        case "mailCode":
+        case "code":
           return (
             <>
               <input

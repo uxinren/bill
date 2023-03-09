@@ -8,7 +8,7 @@ export class HttpClient {
         })
     }
     //查询
-    get<R = unknown>(url:string,query?:Record<string,string>,config?: Omit<AxiosRequestConfig,'params'|'url'|'params'|'method'>){
+    get<R = unknown>(url:string,query?:Record<string,string>,config?: Omit<AxiosRequestConfig,'params'|'url'|'method'>){
         return this.instance.request<R>({
             ...config,
             url,
@@ -17,7 +17,7 @@ export class HttpClient {
         })
     }
     //创建
-    post<R = unknown>(url:string,data?:Record<string,JSONValue>,config?:Omit<AxiosRequestConfig,'data'|'url'|'params'|'method'>){
+    post<R = unknown>(url:string,data?:Record<string,JSONValue>,config?:Omit<AxiosRequestConfig,'data'|'url'|'method'>){
         return this.instance.request<R>({
             ...config,
             url,
@@ -27,7 +27,7 @@ export class HttpClient {
     }
     //更新
     patch<R = unknown>(url:string,data?:Record<string,JSONValue>,
-        config?:Omit<AxiosRequestConfig,'data'|'url'|'params'|'method'>){
+        config?:Omit<AxiosRequestConfig,'data'|'url'>){
             return this.instance.request<R>({
                 ...config,
                 url,
@@ -37,7 +37,7 @@ export class HttpClient {
         }
     //删除
     delete<R = unknown>(url:string,data?:Record<string,string>,
-        config?:Omit<AxiosRequestConfig,'data'|'url'|'params'|'method'>){
+        config?:Omit<AxiosRequestConfig,'params'>){
             return this.instance.request<R>({
                 ...config,
                 url,
@@ -48,6 +48,13 @@ export class HttpClient {
 }
 
 export const defaultHttpClient = new HttpClient('/api/v1')
+defaultHttpClient.instance.interceptors.request.use(config => {
+    const jwt = localStorage.getItem('jwt')
+    if (jwt) {
+      config.headers!.Authorization = `Bearer ${jwt}`
+    }
+    return config
+  })
 defaultHttpClient.instance.interceptors.response.use(response=>{
     return response
 },(error)=>{
@@ -59,5 +66,3 @@ defaultHttpClient.instance.interceptors.response.use(response=>{
     }
         throw error
     })
-// defaultHttpClient.instance.interceptors.request.use(config=>{},()=>{})
-// defaultHttpClient.instance.interceptors.response.use(config=>{},()=>{})

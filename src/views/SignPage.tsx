@@ -6,13 +6,14 @@ import { Button } from "../shared/Button";
 import { Form, FormItem } from "../shared/Form";
 import { defaultHttpClient } from "../shared/HttpClient";
 import { Icon } from "../shared/Icon";
+import { refreshMe } from "../shared/me";
 import { hasError, validate } from "../shared/validate";
 import s from "./SignPage.module.scss";
 export const SignPage = defineComponent({
   setup: (props, context) => {
     const formData = reactive({
-      email: "315921205@qq.com",
-      mailCode: "",
+      email: "315921205@qq.co",
+      code: "",
     });
     const refMailCode = ref<any>();
     const router = useRouter()
@@ -20,44 +21,42 @@ export const SignPage = defineComponent({
     const {ref:refDisabled,toggle,on:disabled,off:enable} = useBool(false);
     const errors = reactive({
       email: [],
-      mailCode: [],
+      code: [],
     });
-    const onCodeClick= async () => {
-      disabled();
-      const response = await defaultHttpClient
-      .post('/validation_codes', { email: formData.email })
-      .catch(onError)
-      .finally(enable);
-      //发送邮箱验证码成功
-      refMailCode.value?.startCount();
+    const onError = (error:any) => {
+      if (error.response.status === 422) {
+        Object.assign(errors, error.response.data.errors);
+      }
+      throw error;
     }
     const onSubmit = async (e: Event) => {
       e.preventDefault();
       Object.assign(errors, {
         email: [],
-        mailCode: [],
+        code: [],
       });
-      Object.assign(
-        errors,
-        validate(formData, [
+      Object.assign(errors,validate(formData, [
           { key: "email", type: "required", message: "必填" },
           { key: "email",type: "pattern",regex: /.+@.+/,message: "邮箱格式不正确"},
-          { key: "mailCode", type: "required", message: "必填" },
+          { key: "code", type: "required", message: "必填" },
         ]))
         if(!hasError(errors)){
           const response = await defaultHttpClient.post<{jwt:string}>('/session', formData)
-          .catch(onError)
           localStorage.setItem('jwt',response.data.jwt)
           // const returnTo = localStorage.getItem('returnTo')
-          const returnTo = route.query.returnTo as string
+          const returnTo = route.query.returnTo?.toString()
+          refreshMe()
           router.push(returnTo || '/')
         }
       };
-      const onError = (error:any) => {
-        if (error.response.status === 422) {
-          Object.assign(errors, error.response.data.errors);
-        }
-        throw error;
+    const onCodeClick= async () => {
+        disabled();
+        const response = await defaultHttpClient
+        .post('/validation_codes', { email: formData.email })
+        .catch(onError)
+        .finally(enable);
+        //发送邮箱验证码成功
+        refMailCode.value?.startCount();
       }
     return () => (
       <MainLayout>
@@ -76,23 +75,19 @@ export const SignPage = defineComponent({
                   type="text"
                   placeholder='请输入邮箱，然后点击发送验证码'
                   v-model={formData.email}
-                  error={errors.email?.[0]}
-                ></FormItem>
+                  error={errors.email?.[0]}/>
                 <FormItem
                   ref={refMailCode}
                   label="验证码"
-                  type="mailCode"
+                  type="code"
                   countFrom={1}
                   disabled={refDisabled.value}
                   placeholder='请输入六位验证码'
-                  v-model={formData.mailCode}
-                  error={errors.mailCode?.[0]}
-                  onCodeClick={onCodeClick}
-                ></FormItem>
-                <FormItem>
-                  <Button size="large" class={s.button} type="submit">
-                    登录
-                  </Button>
+                  v-model={formData.code}
+                  error={errors.code?.[0]}
+                  onCodeClick={onCodeClick}/>
+                <FormItem style={{ paddingTop: '72px' }}>
+                  <Button size="large" type="submit">登录</Button>
                 </FormItem>
               </Form>
             </div>

@@ -36,8 +36,8 @@ export const Button = defineComponent({
     setup:(props,context)=>{
         const selfDisabled = ref(false)
         const _disabled = computed(()=>{
-            if(props.autoSelfDisabled){
-                return selfDisabled.value
+            if(props.autoSelfDisabled === false){
+                return props.disabled
             }
             if(selfDisabled.value){
                 return true
@@ -58,7 +58,7 @@ export const Button = defineComponent({
             disabled={_disabled.value}
             class={[s.button,s[props.level],s[props.theme],s[props.size]]}
             >
-            {context.slots.default?.()}
+                {context.slots.default?.()}
         </button>
        )
     }
