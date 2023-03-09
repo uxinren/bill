@@ -1,4 +1,5 @@
 import { defineComponent, reactive, ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import { useBool } from "../hooks/useBool";
 import { MainLayout } from "../layouts/MainLayout";
 import { Button } from "../shared/Button";
@@ -14,17 +15,13 @@ export const SignPage = defineComponent({
       mailCode: "",
     });
     const refMailCode = ref<any>();
+    const router = useRouter()
+    const route = useRoute()
     const {ref:refDisabled,toggle,on:disabled,off:enable} = useBool(false);
     const errors = reactive({
       email: [],
       mailCode: [],
     });
-    const onError = (error:any) => {
-      if (error.response.status === 422) {
-        Object.assign(errors, error.response.data.errors);
-      }
-      throw error;
-    }
     const onCodeClick= async () => {
       disabled();
       const response = await defaultHttpClient
@@ -48,9 +45,20 @@ export const SignPage = defineComponent({
           { key: "mailCode", type: "required", message: "必填" },
         ]))
         if(!hasError(errors)){
-          const response = await defaultHttpClient.post('/session', formData)
+          const response = await defaultHttpClient.post<{jwt:string}>('/session', formData)
+          .catch(onError)
+          localStorage.setItem('jwt',response.data.jwt)
+          // const returnTo = localStorage.getItem('returnTo')
+          const returnTo = route.query.returnTo as string
+          router.push(returnTo || '/')
         }
       };
+      const onError = (error:any) => {
+        if (error.response.status === 422) {
+          Object.assign(errors, error.response.data.errors);
+        }
+        throw error;
+      }
     return () => (
       <MainLayout>
         {{
