@@ -8,22 +8,27 @@ import { defaultHttpClient } from './shared/HttpClient';
 import { fetchMe, mePromise } from './shared/me';
 
 const router = createRouter({ history, routes })
-
+const whiteList:Record<string,'exact'|'startsWith'> = {
+    '/':'exact',
+    '/start':'exact',
+    '/welcome':'startsWith',
+    '/sign_in':'startsWith'
+}
 fetchMe()
 
 router.beforeEach(async (to,from)=>{
-    if(to.path ==='/'
-    || to.path==='/start'
-    || to.path.startsWith('/welcome') 
-    || to.path.startsWith('/sign_in') ){
-        return true
-    }else{
-        const path = await mePromise!.then(
+    //遍历白名单，如果在白名单中，直接返回true
+    for(const key in whiteList){
+        if(whiteList[key] === 'exact' && to.path === key){
+            return true
+        }else if(whiteList[key] === 'startsWith' && to.path.startsWith(key)){
+            return true
+        }
+    }
+        return mePromise!.then(
             ()=>true,
             ()=> '/sign_in?return_to=' + to.path
         )
-        return path
-    }
 })
 const app = createApp(App)
 app.use(router)
