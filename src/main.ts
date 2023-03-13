@@ -16,7 +16,7 @@ const whiteList:Record<string,'exact'|'startsWith'> = {
 }
 fetchMe()
 
-router.beforeEach(async (to,from)=>{
+router.beforeEach((to,from)=>{
     //遍历白名单，如果在白名单中，直接返回true
     for(const key in whiteList){
         if(whiteList[key] === 'exact' && to.path === key){

@@ -41,7 +41,9 @@ export const SignPage = defineComponent({
           { key: "code", type: "required", message: "必填" },
         ]))
         if(!hasError(errors)){
-          const response = await defaultHttpClient.post<{jwt:string}>('/session', formData)
+          const response = await defaultHttpClient.post<{jwt:string}>('/session', formData,{
+            params:{_mock:'session'}
+          }).catch(onError)
           localStorage.setItem('jwt',response.data.jwt)
           // const returnTo = localStorage.getItem('returnTo')
           const returnTo = route.query.returnTo?.toString()

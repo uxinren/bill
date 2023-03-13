@@ -1,5 +1,11 @@
-import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from "axios";
-type JSONValue = string | number | null | boolean | JSONValue[] | { [key: string]: JSONValue };
+import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+import { mockSession, mockTagIndex } from "../mock/mock";
+
+type GetConfig = Omit<AxiosRequestConfig, 'params' | 'url' | 'method'>
+type PostConfig = Omit<AxiosRequestConfig, 'url' | 'data' | 'method'>
+type PatchConfig = Omit<AxiosRequestConfig, 'url' | 'data'>
+type DeleteConfig = Omit<AxiosRequestConfig, 'params'>
+
 export class HttpClient {
     instance : AxiosInstance
     constructor(baseURL:string){
@@ -8,7 +14,7 @@ export class HttpClient {
         })
     }
     //查询
-    get<R = unknown>(url:string,query?:Record<string,string>,config?: Omit<AxiosRequestConfig,'params'|'url'|'method'>){
+    get<R = unknown>(url:string,query?:Record<string,JSONValue>,config?: GetConfig){
         return this.instance.request<R>({
             ...config,
             url,
@@ -17,7 +23,7 @@ export class HttpClient {
         })
     }
     //创建
-    post<R = unknown>(url:string,data?:Record<string,JSONValue>,config?:Omit<AxiosRequestConfig,'data'|'url'|'method'>){
+    post<R = unknown>(url:string,data?:Record<string,JSONValue>,config?:PostConfig){
         return this.instance.request<R>({
             ...config,
             url,
@@ -26,8 +32,7 @@ export class HttpClient {
         })
     }
     //更新
-    patch<R = unknown>(url:string,data?:Record<string,JSONValue>,
-        config?:Omit<AxiosRequestConfig,'data'|'url'>){
+    patch<R = unknown>(url:string,data?:Record<string,JSONValue>,config?:PatchConfig){
             return this.instance.request<R>({
                 ...config,
                 url,
@@ -36,8 +41,7 @@ export class HttpClient {
             })
         }
     //删除
-    delete<R = unknown>(url:string,data?:Record<string,string>,
-        config?:Omit<AxiosRequestConfig,'params'>){
+    delete<R = unknown>(url:string,data?:Record<string,string>,config?:DeleteConfig){
             return this.instance.request<R>({
                 ...config,
                 url,
@@ -46,8 +50,27 @@ export class HttpClient {
             })
         }
 }
+//接口联调测试
+const mock = (response: AxiosResponse) => {
+    if (location.hostname !== 'localhost'
+      && location.hostname !== '127.0.0.1'
+      && location.hostname !== '172.18.0.2') { return false }
+    switch (response.config?.params?._mock) {
+      case 'tagIndex':
+        [response.status, response.data] = mockTagIndex(response.config)
+        console.log('response')
+        console.log(response)
+        return true
+      case 'session':
+        [response.status, response.data] = mockSession(response.config)
+        return true
+    }
+    return false
+  }
 
 export const defaultHttpClient = new HttpClient('/api/v1')
+
+//请求数据
 defaultHttpClient.instance.interceptors.request.use(config => {
     const jwt = localStorage.getItem('jwt')
     if (jwt) {
@@ -55,6 +78,18 @@ defaultHttpClient.instance.interceptors.request.use(config => {
     }
     return config
   })
+  
+defaultHttpClient.instance.interceptors.response.use((response) => {
+    mock(response)
+    return response
+  }, (error) => {
+    if (mock(error.response)) {
+      return error.response
+    } else {
+      throw error
+    }
+  })
+//响应数据
 defaultHttpClient.instance.interceptors.response.use(response=>{
     return response
 },(error)=>{
