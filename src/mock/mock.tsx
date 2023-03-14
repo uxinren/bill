@@ -1,31 +1,13 @@
-import { faker } from '@faker-js/faker'
-import { AxiosRequestConfig } from 'axios';
+import { faker } from "@faker-js/faker";
+import { AxiosRequestConfig } from "axios";
 
-type Mock = (config: AxiosRequestConfig) => [number, any]
+type Mock = (config: AxiosRequestConfig) => [number, any];
 
-faker.setLocale('zh_CN');
+faker.setLocale("zh_CN");
 
-export {mockSession} from './mockSession'
+//登录联调
+export { mockSession} from "./mockSession";
+//标签页联调
+export { mockTagIndex} from "./mockTag";
 
-export const mockTagIndex: Mock = (config) => {
-  let id = 0
-  const createId = () => {
-    id += 1
-    return id
-  }
-  const createTag = (n = 1, attrs?: any) =>
-    Array.from({ length: n }).map(() => ({
-      id: createId(),
-      name: faker.lorem.word(),
-      sign: faker.internet.emoji(),
-      kind: config.params.kind,
-      ...attrs
-    }))
 
-  if (config.params.kind === 'expenses') {
-    return [200, { resources: createTag(7) }]
-  } else {
-    return [200, { resources: createTag(20) }]
-  }
-
-}
