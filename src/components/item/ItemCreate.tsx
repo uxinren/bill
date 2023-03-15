@@ -6,6 +6,7 @@ import { Tab, Tabs } from "../../shared/Tabs";
 import { useTags } from "../../shared/UserTags";
 import { InputPad } from "./InputPad";
 import s from "./ItemCreate.module.scss";
+import { Tags } from "./Tags";
 export const ItemCreate = defineComponent({
   setup: (props, context) => {
     //初始化类型、是否更多、当前页
@@ -41,55 +42,11 @@ export const ItemCreate = defineComponent({
                   }}
                   class={s.tabs}
                 >
-                  <Tab name="支出" class={s.tags_wrapper}>
-                    <div class={s.tag}>
-                      <div class={s.sign}>
-                        <Icon name="add" class={s.createTag} />
-                      </div>
-                      <div class={s.name}>新增</div>
-                    </div>
-                    {expensesTags.value.map((tag) => (
-                      <div class={[s.tag, s.selected]}>
-                        <div class={s.sign}>{tag.sign}</div>
-                        <div class={s.name}>{tag.name}</div>
-                      </div>
-                    ))}
-                    <div>
-                      {hasMore.value?
-                      <div class={s.tag} onClick={fetchTags}>
-                        <div class={s.sign}>
-                          <Icon name="more" class={s.createTag} />
-                        </div>
-                        <div class={s.name}>更多</div>
-                      </div>  
-                      :''
-                    }
-                    </div>
+                  <Tab name="支出" >
+                   <Tags kind='expenses'></Tags>
                   </Tab>
-                  <Tab name="收入" class={s.tags_wrapper}>
-                    <div class={s.tag}>
-                      <div class={s.sign}>
-                        <Icon name="add" class={s.createTag} />
-                      </div>
-                      <div class={s.name}>新增</div>
-                    </div>
-                    {incomeTags.value.map((tag) => (
-                      <div class={[s.tag, s.selected]}>
-                        <div class={s.sign}>{tag.sign}</div>
-                        <div class={s.name}>{tag.name}</div>
-                      </div>
-                    ))}
-                    <div>
-                      {hasMore2.value?
-                      <div class={s.tag} onClick={fetchTags2}>
-                        <div class={s.sign}>
-                          <Icon name="more" class={s.createTag} />
-                        </div>
-                        <div class={s.name}>更多</div>
-                      </div>  
-                      :''
-                    }
-                    </div>
+                  <Tab name="收入" >
+                    <Tags kind='income'></Tags>
                   </Tab>
                 </Tabs>
                 <div class={s.inputPad_wrapper}>
