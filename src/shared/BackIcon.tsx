@@ -9,9 +9,10 @@ export const BackIcon = defineComponent({
     const onClick = ()=>{
         const {return_to} = route.query
         if(return_to){
-            router.push(return_to.toString()) 
-    }else{
-        router.back()
+            router.push(return_to.toString())
+        }else{
+            router.back()
+        }
     }
     return ()=>(
         <Icon name="left" onClick={onClick}/>
