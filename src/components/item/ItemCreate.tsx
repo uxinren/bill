@@ -3,6 +3,7 @@ import { Dialog } from "vant";
 import { defineComponent, reactive, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { MainLayout } from "../../layouts/MainLayout";
+import { BackIcon } from "../../shared/BackIcon";
 import { defaultHttpClient } from "../../shared/HttpClient";
 import { Icon } from "../../shared/Icon";
 import { Tab, Tabs } from "../../shared/Tabs";
@@ -41,7 +42,7 @@ export const ItemCreate = defineComponent({
       <MainLayout class={s.layout}>
         {{
           title: () => "记一笔",
-          icon: () => <Icon name="left" class={s.icon} />,
+          icon: () => <BackIcon />,
           default: () => (
             <>
               {/* <Tabs selected = {refKind.value} onUpdateSelected={name=> refKind.value = name}> */}
