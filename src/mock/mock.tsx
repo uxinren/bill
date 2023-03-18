@@ -1,7 +1,4 @@
 import { faker } from "@faker-js/faker";
-import { AxiosRequestConfig } from "axios";
-
-type Mock = (config: AxiosRequestConfig) => [number, any];
 
 faker.setLocale("zh_CN");
 
@@ -9,5 +6,7 @@ faker.setLocale("zh_CN");
 export { mockSession} from "./mockSession";
 //标签页联调
 export { mockTagIndex} from "./mockTag";
+//创建标签页
+export { mockItemCreate} from "./mockItemCreate";
 
 

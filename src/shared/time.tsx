@@ -1,8 +1,14 @@
 
 export class Time{
   date: Date;
-  constructor(date = new Date()) {
-    this.date = date;
+  constructor(date? : string | Date) {
+    if(date === undefined){
+      this.date = new Date();
+    }else if(typeof date === 'string'){
+      this.date = new Date(date)
+    }else{
+      this.date = date
+    }
   };
   format(pattern = 'YYYY-MM-DD'){
     // 目前支持的格式有 YYYY MM DD HH mm ss SSS
@@ -46,12 +52,7 @@ export class Time{
         date.setFullYear(date.getFullYear() + amount)
         const targetDate = new Date(
           date.getFullYear(),
-          date.getMonth() + 1,
-          0,
-          0,
-          0,
-          0,
-        ).getDate()
+          date.getMonth() + 1,0,0,0,0,).getDate()
         date.setDate(Math.min(currentDate, targetDate))
         break;
       case 'month':

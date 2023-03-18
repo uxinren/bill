@@ -1,5 +1,6 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 import { mockSession, mockTagIndex } from "../mock/mock";
+import { mockItemCreate } from "../mock/mockItemCreate";
 
 type GetConfig = Omit<AxiosRequestConfig, 'params' | 'url' | 'method'>
 type PostConfig = Omit<AxiosRequestConfig, 'url' | 'data' | 'method'>
@@ -15,39 +16,19 @@ export class HttpClient {
     }
     //查询
     get<R = unknown>(url:string,query?:Record<string,JSONValue>,config?: GetConfig){
-        return this.instance.request<R>({
-            ...config,
-            url,
-            params:query,
-            method:'get'
-        })
+        return this.instance.request<R>({...config,url,params:query,method:'get'})
     }
     //创建
     post<R = unknown>(url:string,data?:Record<string,JSONValue>,config?:PostConfig){
-        return this.instance.request<R>({
-            ...config,
-            url,
-            data,
-            method:'post'
-        })
+        return this.instance.request<R>({...config,url,data,method:'post'})
     }
     //更新
     patch<R = unknown>(url:string,data?:Record<string,JSONValue>,config?:PatchConfig){
-            return this.instance.request<R>({
-                ...config,
-                url,
-                data,
-                method:'patch'
-            })
+            return this.instance.request<R>({...config,url,data,method:'patch'})
         }
     //删除
     delete<R = unknown>(url:string,data?:Record<string,string>,config?:DeleteConfig){
-            return this.instance.request<R>({
-                ...config,
-                url,
-                data,
-                method:'delete'
-            })
+            return this.instance.request<R>({...config,url,data,method:'delete'})
         }
 }
 //接口联调测试
@@ -58,11 +39,12 @@ const mock = (response: AxiosResponse) => {
     switch (response.config?.params?._mock) {
       case 'tagIndex':
         [response.status, response.data] = mockTagIndex(response.config)
-        console.log('response')
-        console.log(response)
         return true
       case 'session':
         [response.status, response.data] = mockSession(response.config)
+        return true
+      case 'itemCreate':
+        [response.status, response.data] = mockItemCreate(response.config)
         return true
     }
     return false
@@ -81,12 +63,17 @@ defaultHttpClient.instance.interceptors.request.use(config => {
   
 defaultHttpClient.instance.interceptors.response.use((response) => {
     mock(response)
-    return response
+    if(response.status>=400){
+      throw{response}
+    }else{
+      return response
+    }
   }, (error) => {
-    if (mock(error.response)) {
-      return error.response
-    } else {
+    mock(error.response)
+    if (error.response.status >= 400) {
       throw error
+    } else {
+      return error.response
     }
   })
 //响应数据
