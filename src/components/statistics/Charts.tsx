@@ -1,6 +1,5 @@
-import { computed, defineComponent,onMounted,PropType, reactive, ref} from 'vue';
+import { defineComponent,PropType, ref} from 'vue';
 import { FormItem } from '../../shared/Form';
-import * as echarts from 'echarts';
 import s from './Charts.module.scss';
 import { LineCharts } from './lineCharts';
 import { PieCharts } from './PieCharts';
@@ -10,11 +9,11 @@ export const Charts = defineComponent({
     props:{
       startDate:{
           type: String as PropType<string>,
-          required:true
+          required:false
       },
       endDate:{
           type: String as PropType<string>,
-          required:true
+          required:false
       }
     },
   setup:(props,context)=>{
