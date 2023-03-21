@@ -8,5 +8,7 @@ export { mockSession} from "./mockSession";
 export { mockTagIndex} from "./mockTag";
 //创建标签页
 export { mockItemCreate} from "./mockItemCreate";
+//编辑标签页
+export { mockTagShow} from "./mockTagShow";
 
 

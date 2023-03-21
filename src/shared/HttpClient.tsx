@@ -6,6 +6,7 @@ import axios, {
 } from "axios";
 import { mockSession, mockTagIndex } from "../mock/mock";
 import { mockItemCreate } from "../mock/mockItemCreate";
+import { mockTagShow } from "../mock/mockTagShow";
 
 type GetConfig = Omit<AxiosRequestConfig, "params" | "url" | "method">;
 type PostConfig = Omit<AxiosRequestConfig, "url" | "data" | "method">;
@@ -75,6 +76,9 @@ const mock = (response: AxiosResponse) => {
       return true;
     case "itemCreate":
       [response.status, response.data] = mockItemCreate(response.config);
+      return true;
+    case "tagShow":
+      [response.status, response.data] = mockTagShow(response.config);
       return true;
   }
   return false;

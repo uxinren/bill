@@ -1,5 +1,5 @@
 import { defineComponent, onUpdated, PropType, ref } from "vue";
-import { RouterLink } from "vue-router";
+import { RouterLink, useRouter } from "vue-router";
 import { defaultHttpClient } from "../../shared/HttpClient";
 import { Icon } from "../../shared/Icon";
 import { useTags } from "../../shared/UserTags";
@@ -24,19 +24,20 @@ export const Tags = defineComponent({
         _mock: "tagIndex",
       });
     });
+    const router = useRouter()
     const onSelect = (tag: Tag) => {
       context.emit("update:selected", tag.id);
     };
-    const onLongPress = () => {
-      console.log("长按");
+    const onLongPress = (tagId: Tag['id']) => {
+      router.push(`/tags/${tagId}/edit?kind=${props.kind}&return_to=${router.currentRoute.value.fullPath}`)
     };
     const timerRef = ref<number>();
     const currentTagRef = ref<HTMLDivElement>();
-    const ontouchsStart = (e: TouchEvent) => {
+    const ontouchsStart = (e: TouchEvent,tag:Tag) => {
       currentTagRef.value = e.target as HTMLDivElement;
       timerRef.value = setTimeout(() => {
-        onLongPress();
-      }, 700);
+        onLongPress(tag.id);
+      }, 600);
     };
     const ontouchsEnd = (e: TouchEvent) => {
       clearTimeout(timerRef.value);
@@ -66,7 +67,7 @@ export const Tags = defineComponent({
             <div
               class={[s.tag, props.selected === tag.id ? s.selected : ""]}
               onClick={() => onSelect(tag)}
-              onTouchstart={ontouchsStart}
+              onTouchstart={(e)=>ontouchsStart(e,tag)}
               onTouchend={ontouchsEnd}
             >
               <div class={s.sign}>{tag.sign}</div>
