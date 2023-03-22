@@ -12,5 +12,7 @@ export { mockItemCreate} from "./mockItemCreate";
 export { mockTagShow} from "./mockTagShow";
 //编辑标签页
 export { mockTagEdit} from "./mockTagEdit";
+//请求图表数据
+export { mockItemSummary} from "./mockItemSummary";
 
 
