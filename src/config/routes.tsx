@@ -18,6 +18,7 @@ import { TagEdit } from '../components/tag/TagEdit'
 import { SignPage } from '../views/SignPage'
 import { StatisticsPage } from '../views/StatisticsPage'
 import { defaultHttpClient } from '../shared/HttpClient'
+import { ComingSoon } from '../shared/ComingSoon'
 
 export const routes: RouteRecordRaw[] = [
     { path: '/', redirect: '/welcome' },
@@ -48,4 +49,6 @@ export const routes: RouteRecordRaw[] = [
   ]},
   {path:'/sign_in',component: SignPage},
   {path:'/statistics',component: StatisticsPage},
+  {path: '/export', component: ComingSoon},
+  {path: '/notify', component: ComingSoon}
   ]

@@ -20,9 +20,9 @@ export const Tags = defineComponent({
     const { hasMore, tags, fetchTags } = useTags((page) => {
       return defaultHttpClient.get<Resources<Tag>>("/tags", {
         kind: props.kind,
-        page: page + 1,
-        _mock: "tagIndex",
-      });
+        page: page + 1},
+        {_mock: "tagIndex", _autoLoading: true}
+        );
     });
     const router = useRouter()
     const onSelect = (tag: Tag) => {

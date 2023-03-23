@@ -19,7 +19,7 @@ export const SignPage = defineComponent({
     const refMailCode = ref<any>();
     const router = useRouter()
     const route = useRoute()
-    const {ref:refDisabled,toggle,on:disabled,off:enable} = useBool(false);
+    const {ref:refDisabled,on:disabled,off:enable} = useBool(false);
     const errors = reactive({
       email: [],
       code: [],
@@ -52,7 +52,9 @@ export const SignPage = defineComponent({
     const onCodeClick= async () => {
         disabled();
         const response = await defaultHttpClient
-        .post('/validation_codes', { email: formData.email })
+        .post('/validation_codes', { email: formData.email }, {
+          _autoLoading: true
+        })
         .catch(onError)
         .finally(enable);
         //发送邮箱验证码成功

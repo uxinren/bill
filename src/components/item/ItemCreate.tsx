@@ -32,9 +32,7 @@ export const ItemCreate = defineComponent({
     //发送金额数据
     const onSubmit = async () => {
       await defaultHttpClient
-        .post<Resource<Item>>("/items", formData, {
-          params: { _mock: "itemCreate" },
-        })
+        .post<Resource<Item>>("/items", formData, { _mock: "itemCreate", _autoLoading: true })
         .catch(onError);
       router.push("/items");
     };
