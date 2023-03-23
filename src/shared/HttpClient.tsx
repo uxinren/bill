@@ -62,7 +62,7 @@ export class HttpClient {
 }
 //接口联调测试
 const mock = (response: AxiosResponse) => {
-  if (
+  if (true ||
     location.hostname !== "localhost" &&
     location.hostname !== "127.0.0.1" &&
     location.hostname !== "172.18.0.2"
