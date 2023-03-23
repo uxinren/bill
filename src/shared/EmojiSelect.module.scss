@@ -2,6 +2,7 @@
     flex-grow: 1;
     border: 1px solid var(--input-border-color);
     border-radius: var(--input-radius);
+    height: 45vh;
     font-size: 18px;
     font-size: 14px;
     &.error {
@@ -31,7 +32,7 @@
       align-content: flex-start;
       font-size: 22px;
       line-height: 32px;
-      height: calc(32px * 12);
+      height: 38vh;
       overflow: auto;
       padding: 1px 4px;
       &::-webkit-scrollbar {
