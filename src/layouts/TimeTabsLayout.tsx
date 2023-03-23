@@ -67,39 +67,68 @@ export const TimeTabsLayout = defineComponent({
         {
           title:()=>'彩虹记账',
           icon:()=> <OverlayIcon/>,
-          default:()=><>
-            <Tabs classPrefix='customTabs' v-model:selected={refSelected.value} 
-            onUpdateSelected={props.onUpdateSelectedTab}
-            onUpdate:selected={onShowOverlay}>
-              <Tab name='本月'>
-                <props.component startDate={timeList[0].start.format()} endDate={timeList[0].end.format()} />
-              </Tab>
-              <Tab name='上月'>
-                <props.component  startDate={timeList[1].start.format()} endDate={timeList[1].end.format()} /> 
-              </Tab>
-              <Tab name='今年'>
-                <props.component  startDate={timeList[2].start.format()} endDate={timeList[2].end.format()} />
-              </Tab>
-              <Tab name='自定义时间'>
-                <props.component  startDate={customTime.start} endDate={customTime.end} />
-              </Tab>
-            </Tabs>
-            <Overlay show={refOverlayVisible.value} class={s.overlay}>
-              <div class={s.overlay_inner}>
-                <header>请选择时间</header>
-                <Form onSubmit={onSubmitCustomTime}>
-                    <FormItem label='开始时间' v-model={tempTime.start} type='date' />
-                    <FormItem label='结束时间' v-model={tempTime.end} type='date' />
-                    <div class={s.submit}>
-                     <Button type='button' size='small' theme='text' onClick={()=>refOverlayVisible.value = false}>取消</Button>
-                     <Button type='submit' size='small' theme='text'>确定</Button>
-                    </div>
-                  </Form>
-              </div>
-            </Overlay>
-          </>
-        }
-      }
+          default: () => (
+            <>
+              {props.hideThisYear ? (
+                <Tabs
+                  classPrefix="customTabs"
+                  v-model:selected={refSelected.value}
+                  onUpdate:selected={onShowOverlay}
+                  onUpdateSelected={props.onUpdateSelectedTab}
+                >
+                  <Tab name="本月">
+                    <props.component startDate={timeList[0].start.format()} endDate={timeList[0].end.format()} />
+                  </Tab>
+                  <Tab name="上月">
+                    <props.component startDate={timeList[1].start.format()} endDate={timeList[1].end.format()} />
+                  </Tab>
+                  <Tab name="自定义时间">
+                    <props.component startDate={customTime.start} endDate={customTime.end} />
+                  </Tab>
+                </Tabs>
+              ) : (
+                <Tabs
+                  classPrefix="customTabs"
+                  v-model:selected={refSelected.value}
+                  onUpdate:selected={onShowOverlay}
+                  onUpdateSelected={props.onUpdateSelectedTab}
+                >
+                  <Tab name="本月">
+                    <props.component startDate={timeList[0].start.format()} endDate={timeList[0].end.format()} />
+                  </Tab>
+                  <Tab name="上月">
+                    <props.component startDate={timeList[1].start.format()} endDate={timeList[1].end.format()} />
+                  </Tab>
+                  <Tab name="今年">
+                    <props.component startDate={timeList[2].start.format()} endDate={timeList[2].end.format()} />
+                  </Tab>
+                  <Tab name="自定义时间">
+                    <props.component startDate={customTime.start} endDate={customTime.end} />
+                  </Tab>
+                </Tabs>
+              )}
+              <Overlay show={refOverlayVisible.value} class={s.overlay}>
+                <div class={s.overlay_inner}>
+                  <header>请选择时间</header>
+                  <main>
+                    <Form onSubmit={onSubmitCustomTime}>
+                      <FormItem label="开始时间" v-model={tempTime.start} type="date" />
+                      <FormItem label="结束时间" v-model={tempTime.end} type="date" />
+                      <FormItem>
+                        <div class={s.actions}>
+                          <button class={s.btn} type="button" onClick={() => (refOverlayVisible.value = false)}>
+                            取消
+                          </button>
+                          <button class={s.btn} type="submit">确认</button>
+                        </div>
+                      </FormItem>
+                    </Form>
+                  </main>
+                </div>
+              </Overlay>
+            </>
+          )
+        }}
       </MainLayout>
     )
   }

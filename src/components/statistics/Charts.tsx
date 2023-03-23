@@ -1,4 +1,4 @@
-import { computed, defineComponent,onMounted,PropType, ref} from 'vue';
+import { computed, defineComponent,onMounted,PropType, ref, watch} from 'vue';
 import { FormItem } from '../../shared/Form';
 import s from './Charts.module.scss';
 import { LineChart } from './LineChart';
@@ -9,6 +9,8 @@ import { Time } from '../../shared/time';
 
 type Data1Item = {happen_at:string, amount: number}
 type Data1 = Data1Item[]
+type Data2Item = { tag_id: number; tag: Tag; amount: number }
+type Data2 = Data2Item[]
 const DAY = 24 * 3600 * 1000
 export const Charts = defineComponent({
     props:{
@@ -37,21 +39,46 @@ export const Charts = defineComponent({
       return [new Date(time).toISOString(), amount]
       })
     })
-
-    onMounted(async ()=>{
+    const fetchData1 = async () => {
       const response = await defaultHttpClient.get<{groups: Data1, summary: number}>('/items/summary',{
         happen_after: props.startDate,
         happen_before: props.endDate,
         kind: kind.value,
+        group_by: 'happen_at',
         _mock: 'itemSummary'
       })
-      console.log('response.data')
-      console.log(response.data)
       data1.value = response.data.groups
+    }
+    onMounted(fetchData1)
+    watch(() => kind.value, fetchData1)
+    // data2
+
+    const data2 = ref<Data2>([])
+    const betterData2 = computed<{ name: string; value: number }[]>(() =>
+      data2.value.map((item) => ({
+        name: item.tag.name,
+        value: item.amount
+      }))
+    )
+    const fetchData2 = async () => {
+      const response = await defaultHttpClient.get<{ groups: Data2; summary: number }>('/items/summary', {
+        happen_after: props.startDate,
+        happen_before: props.endDate,
+        kind: kind.value,
+        group_by: 'tag_id',
+        _mock: 'itemSummary'
+      })
+      data2.value = response.data.groups
+    }
+    const betterData3 = computed<{tag:Tag, amount:number, percent: number}[]>(()=>{
+      const total = data2.value.reduce((sum, item) => sum + item.amount, 0)
+      return data2.value.map(item => ({
+        ...item,
+        percent: Math.round(item.amount / total * 100)
+      }))
     })
-
-
-
+    onMounted(fetchData2)
+    watch(() => kind.value,fetchData2)
     return ()=>(
     <div class={s.wrapper}>
         <FormItem label='类型' v-model={kind.value} 
@@ -62,8 +89,8 @@ export const Charts = defineComponent({
         ]}
         />  
         <LineChart data={betterData1.value} /> 
-        <PieCharts />
-        <Bars />
+        <PieCharts data={betterData2.value}/>
+        <Bars data={betterData3.value}/>
     </div>
     )
   }

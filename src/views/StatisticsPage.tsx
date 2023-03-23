@@ -5,7 +5,7 @@ export const StatisticsPage = defineComponent({
   setup:(props,context)=>{
    
     return ()=>(
-        <TimeTabsLayout onUpdateSelectedTab={true} component={Charts}/>
+        <TimeTabsLayout onUpdateSelectedTab={true} component={Charts} hideThisYear={true}/>
     )
   }
 })
