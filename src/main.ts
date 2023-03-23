@@ -10,7 +10,7 @@ import { fetchMe, mePromise } from './shared/me';
 const router = createRouter({ history, routes })
 const whiteList:Record<string,'exact'|'startsWith'> = {
     '/':'exact',
-    '/start':'exact',
+    '/items':'exact',
     '/welcome':'startsWith',
     '/sign_in':'startsWith'
 }

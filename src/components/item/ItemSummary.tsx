@@ -5,6 +5,9 @@ import { DateTime } from '../../shared/DateTime';
 import { FloatButton } from '../../shared/FloatButton';
 import { defaultHttpClient } from '../../shared/HttpClient';
 import s from './ItemSummary.module.scss';
+import { Icon } from '../../shared/Icon';
+import { RouterLink } from 'vue-router';
+import { Center } from '../../shared/Center';
 export const ItemSummary = defineComponent({
     props:{
       startDate:{
@@ -65,7 +68,7 @@ export const ItemSummary = defineComponent({
     })
     return () => (
       <div class={s.wrapper}>
-        {items.value ? (
+         {(items.value && items.value.length > 0) ? (
           <>
             <ul class={s.total}>
               <li>
@@ -104,10 +107,21 @@ export const ItemSummary = defineComponent({
               }
             </div>
           </>
-        ) : (
-          <div>记录为空</div>
-        )}
-        <FloatButton IconName="add" />
+        ) : 
+        <>
+           <Center class={s.pig_wrapper}>
+                    <Icon name="save" class={s.pig}></Icon>
+            </Center>
+            <div class={s.button_wrapper}>
+              <RouterLink to="/items/create">
+                <Button class={s.button}>开始记账</Button>
+              </RouterLink>
+            </div>
+        </>
+        }
+          <RouterLink to="/items/create">
+          <FloatButton IconName='add' />
+        </RouterLink>
       </div>
     )
 }
