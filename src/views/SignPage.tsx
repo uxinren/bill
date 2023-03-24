@@ -7,11 +7,12 @@ import { Button } from "../shared/Button";
 import { Form, FormItem } from "../shared/Form";
 import { defaultHttpClient } from "../shared/HttpClient";
 import { Icon } from "../shared/Icon";
-import { refreshMe } from "../shared/me";
 import { hasError, validate } from "../shared/validate";
+import { useMeStore } from "../stores/useMeStore";
 import s from "./SignPage.module.scss";
 export const SignPage = defineComponent({
   setup: (props, context) => {
+    const meStore = useMeStore();
     const formData = reactive({
       email: "315921205@qq.co",
       code: "",
@@ -45,7 +46,7 @@ export const SignPage = defineComponent({
           const response = await defaultHttpClient.post<{jwt:string}>('/session', formData).catch(onError)
           localStorage.setItem('jwt',response.data.jwt)
           const returnTo = route.query.returnTo?.toString()
-          refreshMe()
+          meStore.refreshMe()
           router.push(returnTo || '/')
         }
       };

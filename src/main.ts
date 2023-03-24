@@ -4,8 +4,8 @@ import { App } from './App'
 import { createRouter } from 'vue-router'
 import { history } from './shared/history';
 import '@svgstore';
-import { defaultHttpClient } from './shared/HttpClient';
-import { fetchMe, mePromise } from './shared/me';
+import { createPinia } from 'pinia';
+import { useMeStore } from './stores/useMeStore';
 
 const router = createRouter({ history, routes })
 const whiteList:Record<string,'exact'|'startsWith'> = {
@@ -14,8 +14,17 @@ const whiteList:Record<string,'exact'|'startsWith'> = {
     '/welcome':'startsWith',
     '/sign_in':'startsWith'
 }
-fetchMe()
 
+
+
+const pinia = createPinia()
+const app = createApp(App)
+app.use(pinia)
+app.use(router)
+app.mount('#app')
+
+const meStore = useMeStore()
+meStore.fetchMe()
 router.beforeEach((to,from)=>{
     //遍历白名单，如果在白名单中，直接返回true
     for(const key in whiteList){
@@ -25,11 +34,8 @@ router.beforeEach((to,from)=>{
             return true
         }
     }
-        return mePromise!.then(
+        return meStore.mePromise!.then(
             ()=>true,
             ()=> '/sign_in?return_to=' + to.path
         )
 })
-const app = createApp(App)
-app.use(router)
-app.mount('#app')
