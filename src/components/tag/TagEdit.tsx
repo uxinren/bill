@@ -23,15 +23,15 @@ export const TagEdit = defineComponent({
       });
     };
     const router = useRouter();
-    const onDelete = async (option?: { withItem: boolean }) => {
+    const onDelete = async (options?: { withItems?: boolean }) => {
       await Dialog.confirm({
         title: "删除标签",
         message: "确认删除标签吗？",
       });
       await defaultHttpClient
-        .delete(`/tags/${numberId}`, {
-          withItem: option?.withItem ? "true" : "false",
-        })
+      .delete(`/tags/${numberId}`, {
+        with_items: options?.withItems ? 'true' : 'false',
+      }, {_autoLoading: true})
         .catch(onError);
       router.back();
     };
@@ -49,7 +49,7 @@ export const TagEdit = defineComponent({
                 </Button>
                 <Button
                   level="danger"
-                  onClick={() => onDelete({ withItem: true })}
+                  onClick={() => onDelete({ withItems: true })}
                 >
                   全部删除
                 </Button>

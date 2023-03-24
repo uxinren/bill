@@ -52,12 +52,8 @@ export class HttpClient {
     return this.instance.request<R>({ ...config, url, data, method: "patch" });
   }
   //删除
-  delete<R = unknown>(
-    url: string,
-    data?: Record<string, string>,
-    config?: DeleteConfig
-  ) {
-    return this.instance.request<R>({ ...config, url, data, method: "delete" });
+  delete<R = unknown>(url: string, query?: Record<string, string>, config?: DeleteConfig) {
+    return this.instance.request<R>({ ...config, url: url, params: query, method: 'delete' })
   }
 }
 //接口联调测试
