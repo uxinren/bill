@@ -51,3 +51,4 @@ Form.tsx(33, 5): 所需类型来自属性 "error"，在此处的 "IntrinsicAttri
 期待的正确结果：error不报错
 
 
+

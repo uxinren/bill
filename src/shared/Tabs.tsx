@@ -34,7 +34,7 @@ export const Tabs = defineComponent({
               //另一种写法 onClick={()=>props.onUpdateSelected?.(item.props?.name)}
               onClick={()=>context.emit('update:selected', item.props?.value)}
               >
-                  {item.props?.value}
+                  {item.props?.name}
               </li>)}
             </ol>
             {props.onUpdateSelected ?
