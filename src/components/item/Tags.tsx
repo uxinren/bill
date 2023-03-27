@@ -29,7 +29,7 @@ export const Tags = defineComponent({
       context.emit("update:selected", tag.id);
     };
     const onLongPress = (tagId: Tag['id']) => {
-      router.push(`/tags/${tagId}/edit?kind=${props.kind}&return_to=${router.currentRoute.value.fullPath}`)
+      router.push(`/tags/${tagId}/edit?kind=${props.kind}`)
     };
     const timerRef = ref<number>();
     const currentTagRef = ref<HTMLDivElement>();
